@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 10;
     [SerializeField] private float jumpForce = 5;
+    [SerializeField] private LayerMask groundLayer;
     private Rigidbody2D body;
     private BoxCollider2D boxCollider2D;
     
@@ -19,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        //TODO: Add movement animations
+        
         //Flips character model when moving left or right
         if (Input.GetAxis("Horizontal") > 0.01f)
         {
@@ -43,18 +46,9 @@ public class PlayerMovement : MonoBehaviour
         body.velocity = new Vector2(body.velocity.x, jumpForce);
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.gameObject.tag == "Ground")
-        {
-            
-        }
-    }
-
     private bool isGrounded()
     {
-        RaycastHit2D raycastHit2D =
-            Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
-        return false;
+        RaycastHit2D raycastHit2D = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size - new Vector3(0.5f, 0f, 0f), 0, Vector2.down, 0.1f, groundLayer);
+        return raycastHit2D.collider != null;
     }
-}
+}   
