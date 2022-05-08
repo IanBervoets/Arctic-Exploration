@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] private float attackCooldown;
+    [SerializeField] private float attackCooldown = 1;
     [SerializeField] private float attackRange = 0.5f;
     [SerializeField] private float damage = 20;
     [SerializeField] private Transform AttackPoint;
@@ -17,12 +17,11 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space) /*&& attackCooldown > cooldownTimer*/)
+        if (Input.GetKey(KeyCode.Space) &&  cooldownTimer > attackCooldown)
         {
             Attack();
-
-            //cooldownTimer += Time.deltaTime;
         }
+        cooldownTimer += Time.deltaTime;
     }
 
     private void Attack()
@@ -37,7 +36,7 @@ public class PlayerAttack : MonoBehaviour
         {
             enemy.GetComponent<Enemy>().takeDamage(damage);
         }
-        //cooldownTimer = 0;
+        cooldownTimer = 0;
     }
 
     
