@@ -17,12 +17,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        //TODO: remove for final debug purposes pnly
-        if (Input.GetKey(KeyCode.K))
-        {
-            GetComponent<PlayerDeath>().Die();
-        }
-        
         //TODO: Add movement animations
         
         //Flips character model when moving left or right
@@ -41,6 +35,12 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.UpArrow) && isGrounded())
         {
             Jump();
+        }
+        
+        //TODO: remove for final debug purposes pnly
+        if (Input.GetKey(KeyCode.K))
+        {
+            GetComponent<PlayerDeath>().Die();
         }
     }
 
