@@ -24,7 +24,8 @@ public class PlayerDeath : MonoBehaviour
         {
             component.enabled = false;
         }
-     
+
+        GameObject.Find("Main Camera").GetComponent<CameraController>().enabled = false;
         
         deathPanel.SetActive(!deathPanel.activeSelf);
     }

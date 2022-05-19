@@ -43,6 +43,8 @@ public class PlayerRespawn : MonoBehaviour
             component.enabled = true;
         }
         
+        GameObject.Find("Main Camera").GetComponent<CameraController>().enabled = true;
+
         deathPanel.SetActive(!deathPanel.activeSelf);
     }
 }
