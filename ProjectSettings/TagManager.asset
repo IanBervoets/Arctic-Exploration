@@ -19,7 +19,7 @@ TagManager:
   - Ground
   - Enemy
   - KillPlane
-  - 
+  - Background
   - 
   - 
   - 
@@ -43,6 +43,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: background
+    uniqueID: 963927151
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
