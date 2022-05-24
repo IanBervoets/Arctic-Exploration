@@ -77,5 +77,6 @@ public class TimerScript : MonoBehaviour
     public void ExtendTimer()
     {
         timeExtended = true;
+        //TODO: change player sprite
     }
 }

@@ -8,6 +8,7 @@ TagManager:
   - Checkpoint
   - IcebergStart
   - IcebergEnd
+  - GameEnd
   layers:
   - Default
   - TransparentFX

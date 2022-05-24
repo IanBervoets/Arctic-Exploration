@@ -2,19 +2,24 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class PlayerRespawn : MonoBehaviour
 {
     [SerializeField] private Behaviour[] components;
-    [SerializeField] GameObject deathPanel;
+    [SerializeField] private GameObject deathPanel;
     [SerializeField] private GameObject timerExtensionPanel;
+    [SerializeField] private GameObject gameEndPanel;
+    [SerializeField] private GameObject timeText;
+    private Rigidbody2D body;
     private Vector3 currentCheckpoint;
     private bool icebergIsTriggered;
     private TimerScript timerScript;
 
     private void Start()
     {
+        body = GetComponent<Rigidbody2D>();
         timerScript = GameObject.Find("Canvas").GetComponent<TimerScript>();
         currentCheckpoint = GameObject.Find("Player").transform.position;
     }
@@ -48,6 +53,23 @@ public class PlayerRespawn : MonoBehaviour
             timerScript.StopTimer();
             icebergIsTriggered = false;
         }
+        else if(col.CompareTag("GameEnd"))
+        {
+            foreach (Behaviour component in components)
+            {
+                component.enabled = false;
+            }
+            
+            body.velocity = Vector2.zero;
+            
+            GameObject.Find("Main Camera").GetComponent<CameraController>().enabled = true;
+
+            gameEndPanel.SetActive(true);
+            if (!timerScript.timeExtended)
+            {
+                timeText.SetActive(true);
+            }
+        }
     }
 
     public void Respawn()
@@ -77,5 +99,15 @@ public class PlayerRespawn : MonoBehaviour
 
             timerScript.StartTimer();
         }
+    }
+
+    public void Replay()
+    {
+        if (!timerScript.timeExtended)
+        {
+            //TODO: Set player sprite
+        }
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
