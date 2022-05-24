@@ -8,13 +8,14 @@ public class PlayerRespawn : MonoBehaviour
 {
     [SerializeField] private Behaviour[] components;
     [SerializeField] GameObject deathPanel;
+    [SerializeField] private GameObject timerExtensionPanel;
     private Vector3 currentCheckpoint;
     private bool icebergIsTriggered;
-    private GameObject canvas;
-    
+    private TimerScript timerScript;
+
     private void Start()
     {
-        canvas = GameObject.Find("Canvas");
+        timerScript = GameObject.Find("Canvas").GetComponent<TimerScript>();
         currentCheckpoint = GameObject.Find("Player").transform.position;
     }
     
@@ -37,14 +38,14 @@ public class PlayerRespawn : MonoBehaviour
         {
             currentCheckpoint = col.transform.position;
             col.GetComponent<Collider2D>().enabled = false;
-            canvas.GetComponent<TimerScript>().StartTimer();
+            timerScript.StartTimer();
             icebergIsTriggered = true;
         }
         else if(col.CompareTag("IcebergEnd"))
         {
             currentCheckpoint = col.transform.position;
             col.GetComponent<Collider2D>().enabled = false;
-            canvas.GetComponent<TimerScript>().StopTimer();
+            timerScript.StopTimer();
             icebergIsTriggered = false;
         }
     }
@@ -62,11 +63,19 @@ public class PlayerRespawn : MonoBehaviour
 
         GameObject.Find("Main Camera").GetComponent<CameraController>().enabled = true;
 
-        deathPanel.SetActive(!deathPanel.activeSelf);
-
+        if (!timerExtensionPanel.activeSelf)
+        {
+            deathPanel.SetActive(!deathPanel.activeSelf);
+        }
+        
         if (icebergIsTriggered)
         {
-            canvas.GetComponent<TimerScript>().StartTimer();
+            if (timerExtensionPanel.activeSelf)
+            {
+                timerExtensionPanel.SetActive(false);
+            }
+
+            timerScript.StartTimer();
         }
     }
 }

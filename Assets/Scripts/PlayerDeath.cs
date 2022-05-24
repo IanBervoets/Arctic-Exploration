@@ -6,7 +6,8 @@ using UnityEngine;
 public class PlayerDeath : MonoBehaviour
 {
     [SerializeField] private Behaviour[] components;
-    [SerializeField] GameObject deathPanel;
+    [SerializeField] private GameObject deathPanel;
+    [SerializeField] private GameObject timerExtensionPanel;
     private Rigidbody2D body;
 
     public void Start()
@@ -26,7 +27,10 @@ public class PlayerDeath : MonoBehaviour
         }
 
         GameObject.Find("Main Camera").GetComponent<CameraController>().enabled = false;
-        
-        deathPanel.SetActive(!deathPanel.activeSelf);
+
+        if (!timerExtensionPanel.activeSelf)
+        {
+            deathPanel.SetActive(!deathPanel.activeSelf);
+        }
     }
 }

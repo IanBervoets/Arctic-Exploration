@@ -10,11 +10,19 @@ public class TimerScript : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private GameObject timerGameObject;
-    [SerializeField] private float timeLeft = 120f;
+    [SerializeField] private GameObject timerExtensionPanel;
+    [SerializeField] public float timeLeft = 60f;
+    private PlayerDeath PlayerDeath;
     private float timer;
     private int timesLost;
-    public bool timerIsOn;
-    
+    private bool timerIsOn;
+    public bool timeExtended;
+
+    private void Start()
+    {
+        PlayerDeath = GameObject.Find("Player").GetComponent<PlayerDeath>();
+    }
+
     void Update()
     {
         //TODO: remove this in cleanup
@@ -32,17 +40,29 @@ public class TimerScript : MonoBehaviour
             }
             else
             {
-                GameObject.Find("Player").GetComponent<PlayerDeath>().Die();
-                timesLost++;
-                timerIsOn = false;
-                
-                //TODO: add condition here for timer extension
+                if (timesLost != 5)
+                {
+                    PlayerDeath.Die();
+                    timesLost++;
+                    timerIsOn = false;
+                }
+                else
+                {
+                    timerExtensionPanel.SetActive(true);
+                    PlayerDeath.Die();
+                    timesLost++;
+                    timerIsOn = false;
+                }
             }
         }
     }
     
     public void StartTimer()
     {
+        if (timeExtended)
+        {
+            timeLeft = 120f;
+        }
         timer = timeLeft;
         timerIsOn = true;
         timerGameObject.SetActive(true);
@@ -52,5 +72,10 @@ public class TimerScript : MonoBehaviour
     {
         timerIsOn = false;
         timerGameObject.SetActive(false);
+    }
+
+    public void ExtendTimer()
+    {
+        timeExtended = true;
     }
 }
