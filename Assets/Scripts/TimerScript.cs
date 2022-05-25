@@ -12,6 +12,8 @@ public class TimerScript : MonoBehaviour
     [SerializeField] private GameObject timerGameObject;
     [SerializeField] private GameObject timerExtensionPanel;
     [SerializeField] public float timeLeft = 60f;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Sprite chickenSprite;
     private PlayerDeath PlayerDeath;
     private float timer;
     private int timesLost;
@@ -25,12 +27,6 @@ public class TimerScript : MonoBehaviour
 
     void Update()
     {
-        //TODO: remove this in cleanup
-        if (Input.GetKey(KeyCode.T))
-        {
-            StartTimer();
-        }
-        
         if (timerIsOn)
         {
             if (timer > 0)
@@ -77,6 +73,8 @@ public class TimerScript : MonoBehaviour
     public void ExtendTimer()
     {
         timeExtended = true;
-        //TODO: change player sprite
+        
+        spriteRenderer.sprite = chickenSprite;
+
     }
 }

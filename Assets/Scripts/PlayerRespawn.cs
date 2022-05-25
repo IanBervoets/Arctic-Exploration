@@ -12,16 +12,23 @@ public class PlayerRespawn : MonoBehaviour
     [SerializeField] private GameObject timerExtensionPanel;
     [SerializeField] private GameObject gameEndPanel;
     [SerializeField] private GameObject timeText;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Sprite winSprite;
     private Rigidbody2D body;
     private Vector3 currentCheckpoint;
     private bool icebergIsTriggered;
     private TimerScript timerScript;
+    private static bool isWinner;
 
     private void Start()
     {
         body = GetComponent<Rigidbody2D>();
         timerScript = GameObject.Find("Canvas").GetComponent<TimerScript>();
         currentCheckpoint = GameObject.Find("Player").transform.position;
+        if (isWinner)
+        {
+            spriteRenderer.sprite = winSprite;
+        }
     }
     
     public void Update()
@@ -74,8 +81,6 @@ public class PlayerRespawn : MonoBehaviour
 
     public void Respawn()
     {
-        //TODO: maybe add an animation?
-
         transform.position = currentCheckpoint;
 
         foreach (Behaviour component in components)
@@ -105,9 +110,8 @@ public class PlayerRespawn : MonoBehaviour
     {
         if (!timerScript.timeExtended)
         {
-            //TODO: Set player sprite
+            isWinner = true;
         }
-
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

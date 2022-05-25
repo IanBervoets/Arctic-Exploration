@@ -22,10 +22,6 @@ public class PlayerAttack : MonoBehaviour
 
     private void Attack()
     {
-        //TODO: Add attack animation
-        
-        Debug.Log("Attacked");
-
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position,attackRange, enemyLayer);
 
         foreach (Collider2D enemy in hitEnemies)

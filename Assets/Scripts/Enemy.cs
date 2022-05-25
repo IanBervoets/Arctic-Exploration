@@ -14,8 +14,6 @@ public class Enemy : MonoBehaviour
     public void takeDamage(float damage)
     {
         currentHealth -= damage;
-        
-        //Todo: Add damage animation
 
         if (currentHealth <= 0)
         {
@@ -25,8 +23,6 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
-        //Todo: Add death animation
-        
         Debug.Log("I am dead");
 
         Destroy(gameObject);

@@ -17,8 +17,6 @@ public class PlayerDeath : MonoBehaviour
 
     public void Die()
     {
-        //TODO: Add death animation
-        
         body.velocity = Vector2.zero;
 
         foreach (Behaviour component in components)

@@ -17,16 +17,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        //TODO: Add movement animations
-        
         //Flips character model when moving left or right
         if (Input.GetAxis("Horizontal") > 0.01f)
         {
-            transform.localScale = Vector3.one;
+            transform.localScale = new Vector3(0.1f, 0.1f, 1);
         }
         else if (Input.GetAxis("Horizontal") < -0.01f)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(-0.1f, 0.1f, 1);
         }
 
         //Controls Character movement
@@ -35,12 +33,6 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.UpArrow) && isGrounded())
         {
             Jump();
-        }
-        
-        //TODO: remove for final debug purposes pnly
-        if (Input.GetKey(KeyCode.K))
-        {
-            GetComponent<PlayerDeath>().Die();
         }
     }
 
@@ -51,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isGrounded()
     {
-        RaycastHit2D raycastHit2D = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size - new Vector3(0.5f, -0.5f, 0f), 0, Vector2.down, 0.1f, groundLayer);
+        RaycastHit2D raycastHit2D = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size - new Vector3(0.05f, 0f, 0f), 0, Vector2.down, 1f, groundLayer);
         return raycastHit2D.collider != null;
     }
 }   
